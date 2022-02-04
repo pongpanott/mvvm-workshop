@@ -1,13 +1,16 @@
+import Toggle from "baseUI/button/toggle";
 import { Table, TableBody } from "baseUI/table";
-import { useViewModel } from "../useViewModel";
 import { TableColumn } from "./components/tableColumn";
 import { TableRow } from "./components/tableRow";
+import useViewModel from "./useViewModel";
 
 export const OverallPage = () => {
-  const { data, onRemoveData, onDuplicateData, errorsRows } = useViewModel();
+  const { data, errorsRows, onRemoveData, onDuplicateData, toggle, setToggle } =
+    useViewModel();
 
   return (
     <div className=" p-8 pt-[72px] mx-auto">
+      <Toggle enabled={toggle} setEnabled={() => setToggle(!toggle)} />
       <Table>
         <TableColumn />
         <TableBody>
@@ -15,7 +18,7 @@ export const OverallPage = () => {
             <TableRow
               data={entry}
               index={index}
-              onRemove={onRemoveData}
+              onRemove={() => onRemoveData(index)}
               onDuplicateData={onDuplicateData}
               error={errorsRows.includes(index)}
             />
